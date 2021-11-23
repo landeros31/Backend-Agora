@@ -52,6 +52,67 @@ const controllerUser = {
     } catch (err) {
       return res.status(500).json({ msg: err.message })
     }
+  },registerAdmin: async (req, res) =>{
+        try{
+            const {name, email, password, role} = req.body
+
+            if(!name || !email || !password || !role)
+                return res.status(400).json({msg: "Please fill in all fields."})
+
+            if(!validateEmail(email))
+                return res.status(400).json({msg: "Invalid emails."})
+
+            const user = await User.findOne({email})
+
+            if(user) return res.status(400).json({msg: "This email already exists."})
+
+            if(password.length < 6)
+                return res.status(400).json({msg: "Password must be at least 6 characters."})
+
+            const passwordHash = await bcrypt.hash(password, 12)
+
+            const newUser = new User({
+                name, email, passwordHash, role
+            })
+
+            
+            await newUser.save()
+            res.json({msg: "User has been create!"})
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    registerAdmin: async (req, res) =>{
+      try{
+          const {name, email, password, role} = req.body
+
+          if(!name || !email || !password || !role)
+              return res.status(400).json({msg: "Please fill in all fields."})
+
+          if(!validateEmail(email))
+              return res.status(400).json({msg: "Invalid emails."})
+
+          const user = await User.findOne({email})
+
+          if(user) return res.status(400).json({msg: "This email already exists."})
+
+          if(password.length < 6)
+              return res.status(400).json({msg: "Password must be at least 6 characters."})
+
+          const passwordHash = await bcrypt.hash(password, 12)
+
+          const newUser = new User({
+              name, email, passwordHash, role
+          })
+
+          
+          await newUser.save()
+          res.json({msg: "User has been create!"})
+
+      } catch (err) {
+          return res.status(500).json({msg: err.message})
+      }
   },
   activateEmail: async (req, res) => {
     try {
@@ -88,28 +149,29 @@ const controllerUser = {
   },
   login: async (req, res) => {
     try {
-      const { email, password } = req.body
-      const user = await User.findOne({ email })
-      const isMatch =
-        user === null
-          ? false
-          : await bcrypt.compare(password, user.passwordHash)
-      if (!isMatch) {
-        res.status(401).json({
-          error: 'Invalid password or user'
+        console.log(req.body, 'ingresologin')
+        const {email, password} = req.body
+        const user = await User.findOne({email})
+        
+        const isMatch =
+            user === null ? false : await bcrypt.compare(password, user.passwordHash)
+            if (!isMatch) {
+                res.status(401).json({
+                    error: 'Invalid password or user'
+                })
+            }
+        
+        const refresh_token = createRefreshToken({id: user._id})
+        
+        res.send({
+            email: user.email,
+            refresh_token,
+            msg: "Login success!"
+            
         })
-      }
-
-      const refresh_token = createRefreshToken({ id: user._id })
-      res.cookie('refreshtoken', refresh_token, {
-        httpOnly: true,
-        path: '/api/refresh_token',
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-      })
-
-      res.json({ msg: 'Login success!' })
+        
     } catch (err) {
-      return res.status(500).json({ msg: err.message })
+        return res.status(500).json({msg: err.message})
     }
   },
   getAccessToken: (req, res) => {
@@ -174,14 +236,6 @@ const controllerUser = {
       const users = await User.find().select('-password')
 
       res.json(users)
-    } catch (err) {
-      return res.status(500).json({ msg: err.message })
-    }
-  },
-  logout: async (req, res) => {
-    try {
-      res.clearCookie('refreshtoken', { path: '/api/refresh_token' })
-      return res.json({ msg: 'Logged out.' })
     } catch (err) {
       return res.status(500).json({ msg: err.message })
     }
