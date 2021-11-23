@@ -5,6 +5,8 @@ const authAdmin = require('../middleware/authAdmin')
 
 router.post('/register', controllerUser.register)
 
+router.post('/register_admin', controllerUser.registerAdmin)
+
 router.post('/activation', controllerUser.activateEmail)
 
 router.post('/login', controllerUser.login)
@@ -19,17 +21,12 @@ router.get('/info', auth, controllerUser.getUserInfor)
 
 router.get('/all_info', auth, authAdmin, controllerUser.getUsersAllInfor)
 
-router.get('/logout', controllerUser.logout)
-
 router.patch('/update', auth, controllerUser.updateUser)
 
-router.patch(
-  '/update_role/:id',
-  auth,
-  authAdmin,
-  controllerUser.updateUsersRole
-)
+router.patch('/update_role/:id', auth, authAdmin, controllerUser.updateUsersRole)
 
 router.delete('/delete/:id', auth, authAdmin, controllerUser.deleteUser)
+
+
 
 module.exports = router
