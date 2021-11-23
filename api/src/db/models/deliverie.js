@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose')
 
 const deliverieSchema = new Schema ({
 
-    id_brief:{
+    id_Proyecto:{
         type: String,
         require: true
     },
@@ -19,7 +19,8 @@ const deliverieSchema = new Schema ({
         require: true
     },
     date_publisher:{
-        timestamps:true
+        type: Date,
+      
     },
  
 })

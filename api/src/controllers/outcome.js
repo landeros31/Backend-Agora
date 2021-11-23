@@ -4,14 +4,14 @@ const Outcome = require('../db/models/outcome')
 const controllerOutcome = {
     create: async (req, res) => {
         try{
-            const {id_deliverie, outcome} = req.body
+            const {id_deliverie, outcomes} = req.body
 
-            if(!outcome || !id_deliverie )
+            if(!outcomes || !id_deliverie )
                 return res.status(400).json({msg: "Please fill in all fields."})
             
                 const outcome = new Outcome({
                     
-                    outcome,
+                    outcomes,
                     id_deliverie,
 
                   })
@@ -25,27 +25,29 @@ const controllerOutcome = {
         }
     },
 
-    // getAnnuncies: async (req, res) => {
-    //     try {
-    //         const annuncies = await Annuncie.find({})
+    getOutcome: async (req, res) => {
+        const {id_deliverie} = req.params
+        try {
+            const outcome = await Outcome.find({id_deliverie})
             
-    //         res.json(annuncies)
-    //     } catch (err) {
-    //         return res.status(500).json({msg: err.message})
-    //     }
-    // },
-    // updateAnnuncie: async (req, res) => {
-    //     try {
-    //         const {id_annuncie, state} = req.body
-    //         await Annuncie.findOneAndUpdate({_id : id_annuncie}, {
-    //             state
-    //         })
+            res.json(outcome)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    updateOutcome: async (req, res) => {
+        const {id_deliverie} = req.params
+        try {
+            const {result} = req.body
+            await Outcome.findOneAndUpdate({id_deliverie : id_deliverie}, {
+                result
+            })
 
-    //         res.json({msg: "Update Success!"})
-    //     } catch (err) {
-    //         return res.status(500).json({msg: err.message})
-    //     }
-    // },
+            res.json({msg: "Update Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
  
 }
     

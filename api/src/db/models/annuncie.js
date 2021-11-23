@@ -5,12 +5,12 @@ const annuncieSchema = new Schema({
   id_user:{
       type:String,  
   },
-   text:{
+  textAnnouncement:{
     type:String,
     require:true,
   },
  
-  name_annuncie :{
+  titleAnnouncement :{
     type : String,
     require : true
   }, 
@@ -19,7 +19,9 @@ const annuncieSchema = new Schema({
         default : true
     }
 
-})
+  },{    
+    timestamps:true
+  });
 
 annuncieSchema.set('toJSON', {
   transform: (document, returnedObject) => {

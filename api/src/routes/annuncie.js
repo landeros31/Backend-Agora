@@ -1,11 +1,12 @@
 const router = require('express').Router()
+const auth = require('../middleware/auth')
 const controllerAnnuncie = require('../controllers/annuncie')
 
 
 
-router.post('/new-annuncie', controllerAnnuncie.create)
-router.get('/get-annuncies', controllerAnnuncie.getAnnuncies)
-router.patch('/update-annuncie',controllerAnnuncie.updateAnnuncie)
+router.post('/new-announcie',auth, controllerAnnuncie.create)
+router.get('/get-announcies',auth, controllerAnnuncie.getAnnuncies)
+router.patch('/update-announcie',auth,controllerAnnuncie.updateAnnuncie)
 
 
 

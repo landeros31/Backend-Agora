@@ -4,19 +4,18 @@ const Annuncie = require('../db/models/annuncie')
 const controllerAnnuncie = {
     create: async (req, res) => {
         try{
-            const {id_user, text,name_annuncie,estado} = req.body
+            const {id_user, textAnnouncement,titleAnnouncement,estado} = req.body
 
-            if(!text || !name_annuncie )
+            if(!textAnnouncement || !titleAnnouncement )
                 return res.status(400).json({msg: "Please fill in all fields."})
             
                 const annuncie = new Annuncie({
                     
                     id_user,
-                    text,
-                    name_annuncie,
+                    textAnnouncement,
+                    titleAnnouncement,
                     estado
-                    
-                    
+                                       
                   })
                 
                   const savedAnnuncie = await annuncie.save()
@@ -27,7 +26,7 @@ const controllerAnnuncie = {
             return res.status(500).json({msg: err.message})
         }
     },
-
+// no tenemos que traer esto por cohorte????
     getAnnuncies: async (req, res) => {
         try {
             const annuncies = await Annuncie.find({})

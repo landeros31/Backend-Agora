@@ -40,7 +40,6 @@ const controllerProject = {
     getProjects: async (req, res) => {
         try {
             const projects = await Project.find({})
-
             res.json(projects)
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -48,7 +47,7 @@ const controllerProject = {
     },
     getOneProject: async (req, res) => {
         try {
-            const {id}=req.body
+            const {id}=req.params
             const project = await Project.findById(id)
             
             res.json(project)

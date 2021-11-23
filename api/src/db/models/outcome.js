@@ -6,35 +6,14 @@ const outcomeSchema = new Schema ({
         type: String,
         require: true,
       },
-  outcome: {
-    outcome1:{
-        type: Number,  ////0=nada 1 = nivel1    2= nivel 2     3=nivel3   
-        default: 0
-
-    },
-    outcome2:{
-      type: Number,  ////0=nada 1 = nivel1    2= nivel 2     3=nivel3   
-      default: 0
-
-  },
-  outcome3:{
-    type: Number,  ////0=nada 1 = nivel1    2= nivel 2     3=nivel3   
-    default: 0
-
-  },
-  outcome4:{
-    type: Number,  ////0=nada 1 = nivel1    2= nivel 2     3=nivel3   
-    default: 0
-
-  }, outcome5:{
-    type: Number,  ////0=nada 1 = nivel1    2= nivel 2     3=nivel3   
-    default: 0
-
-  }, outcome6:{
-    type: Number,  ////0=nada 1 = nivel1    2= nivel 2     3=nivel3   
-    default: 0
-  },  
+  outcomes: {
+    type: Array,
+    require: true,
 },
+    result: {
+      type: Array,
+      require: true,
+    },
 })
 
 outcomeSchema.set('toJSON', {
