@@ -176,7 +176,7 @@ const controllerUser = {
   },
   getAccessToken: (req, res) => {
     try {
-      const rf_token = req.cookies.refreshtoken
+      const rf_token = req.body.refreshtoken
       if (!rf_token) return res.status(400).json({ msg: 'Please login now!' })
 
       jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
@@ -239,6 +239,15 @@ const controllerUser = {
     } catch (err) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  getUsersAllStudents: async (req, res) => {
+    try {
+        const users = await User.find({role: 0}).select('-password')
+        res.json(users)
+    } catch (err) {
+        return res.status(500).json({msg: err.message})
+    }
+    
   },
   updateUser: async (req, res) => {
     try {

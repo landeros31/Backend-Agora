@@ -2,6 +2,7 @@ const router = require('express').Router()
 const controllerUser = require('../controllers/user')
 const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
+const authTeacher = require('../middleware/authTeacher')
 
 router.post('/register', controllerUser.register)
 
@@ -21,12 +22,14 @@ router.get('/info', auth, controllerUser.getUserInfor)
 
 router.get('/all_info', auth, authAdmin, controllerUser.getUsersAllInfor)
 
+router.get('/all_students', auth, authTeacher, controllerUser.getUsersAllStudents)
+
 router.patch('/update', auth, controllerUser.updateUser)
 
 router.patch('/update_role/:id', auth, authAdmin, controllerUser.updateUsersRole)
 
 router.delete('/delete/:id', auth, authAdmin, controllerUser.deleteUser)
 
-
+ 
 
 module.exports = router

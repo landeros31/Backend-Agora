@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
         type: Number,
-        default: 0 // 0 = aspirante, 1 = estudiante 2 = egresado, 3 = formador, 4 = mentor 5=monitor 6=entrevistador 7=observador 8=entreobservador =admin 
+        default: 0 // 0 = Estudiante, 1= Admn 2 = Formador 1 = estudiante 2 = egresado, 3 = formador, 4 = mentor 5=monitor 6=entrevistador 7=observador 8=entreobservador =admin 
     },
     avatar: {
       type: String,
