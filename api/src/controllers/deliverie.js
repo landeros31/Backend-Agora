@@ -83,7 +83,7 @@ const controllerDeleverie = {
 
   getDeliverie: async (req, res) => {
     try {
-      const {id_deliverie} = req.body 
+      const {id_deliverie} = req.params 
 
       const deliverie = await Deliverie.findById(id_deliverie).populate('competencies')
 
