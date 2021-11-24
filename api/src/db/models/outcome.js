@@ -3,9 +3,11 @@ const { Schema, model } = require('mongoose')
 const outcomeSchema = new Schema ({
 
     id_deliverie:{
-        type: String,
-        require: true,
+      type: Schema.Types.ObjectId,
+      ref: 'Deliverie',
+      require: true,
       },
+      
   outcomes: {
     type: Array,
     require: true,

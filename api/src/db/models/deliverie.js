@@ -28,7 +28,11 @@ const deliverieSchema = new Schema(
     link: {
       type: Array,
       require: true
-    }
+    },
+    competencies: {
+      type: Schema.Types.ObjectId,
+      ref: 'Outcome',
+    },
   },
   {
     timestamps: true

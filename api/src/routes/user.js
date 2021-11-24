@@ -22,7 +22,7 @@ router.get('/info', auth, controllerUser.getUserInfor)
 
 router.get('/all_info', auth, authAdmin, controllerUser.getUsersAllInfor) 
 
-router.get('/all_students', auth, authTeacher, controllerUser.getUsersAllStudents)
+router.get('/all_students', controllerUser.getUsersAllStudents) //auth, authTeacher
 
 router.patch('/update', auth, controllerUser.updateUser)
 

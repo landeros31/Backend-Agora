@@ -8,6 +8,7 @@ const user = require('./routes/user')
 const project = require('./routes/projects')
 const annuncie = require('./routes/annuncie')
 const deliverie = require('./routes/deliverie')
+const outcome = require('./routes/outcome')
 
 
 
@@ -30,6 +31,7 @@ app.use('/api', user)
 app.use('/api/agora', project)
 app.use('/api/agora', annuncie)
 app.use('/api/agora', deliverie)
+app.use('/api/agora', outcome)
 
 
 // Setting

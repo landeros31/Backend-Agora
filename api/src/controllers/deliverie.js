@@ -71,20 +71,34 @@ const controllerDeleverie = {
     }
   },
 
-  getDeliverie: async (req, res) => {
+  getDeliveries: async (req, res) => {
     try {
-      const deliverie = await Deliverie.find({})
+      const deliverie = await Deliverie.find({}).populate('competencies')
 
       res.json(deliverie)
     } catch (err) {
       return res.status(500).json({ msg: err.message })
     }
   },
+
+  getDeliverie: async (req, res) => {
+    try {
+      const {id_deliverie} = req.body 
+
+      const deliverie = await Deliverie.findById(id_deliverie).populate('competencies')
+
+      res.json(deliverie)
+    } catch (err) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+
+
   //getAll X student
   getDeliverieStudent: async (req, res) => {
     try {
       const { id_user } = req.body
-      const deliverie = await Deliverie.find({ id_user })
+      const deliverie = await Deliverie.find({ id_user }).populate('competencies')
 
       res.json(deliverie)
     } catch (err) {
@@ -103,19 +117,7 @@ const controllerDeleverie = {
     }
   }
 
-  //      const user = await User.findOne({ email })
-  // updateDeliverie: async (req, res) => {
-  //     try {
-  //         const {id_deleverie, state} = req.body
-  //         await Deleverie.findOneAndUpdate({_id : id_deliverie}, {
-  //             state
-  //         })
-
-  //         res.json({msg: "Update Success!"})
-  //     } catch (err) {
-  //         return res.status(500).json({msg: err.message})
-  //     }
-  // },
+  
 }
 
 module.exports = controllerDeleverie
