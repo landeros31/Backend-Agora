@@ -6,7 +6,7 @@ const authTeacher = require('../middleware/authTeacher')
 
 router.post('/register', controllerUser.register)
 
-router.post('/register_admin', controllerUser.registerAdmin)
+router.post('/register_admin', auth, authAdmin, controllerUser.registerAdmin)
 
 router.post('/activation', controllerUser.activateEmail)
 
@@ -20,7 +20,7 @@ router.post('/reset', auth, controllerUser.resetPassword)
 
 router.get('/info', auth, controllerUser.getUserInfor)
 
-router.get('/all_info', auth, authAdmin, controllerUser.getUsersAllInfor)
+router.get('/all_info', auth, authAdmin, controllerUser.getUsersAllInfor) 
 
 router.get('/all_students', auth, authTeacher, controllerUser.getUsersAllStudents)
 

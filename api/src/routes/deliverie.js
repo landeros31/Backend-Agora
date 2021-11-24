@@ -5,7 +5,7 @@ const controllerDeliverie = require('../controllers/deliverie')
 
 
 
-router.post('/new-deliverie/:id_project', controllerDeliverie.create)
+router.post('/new-deliverie', controllerDeliverie.create)
 router.post('/new-deliverie/:id_deliverie', controllerDeliverie.addChat)
 router.post('/new-deliverie/:id_deliverie', controllerDeliverie.addLink)
 router.get('/get-deliverie', auth,controllerDeliverie.getDeliverie)

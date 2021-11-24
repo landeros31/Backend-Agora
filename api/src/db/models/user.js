@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { Schema, model } = require('mongoose')
 
 const userSchema = new mongoose.Schema(
   {
@@ -33,35 +34,39 @@ const userSchema = new mongoose.Schema(
       type: Number
     },
     role: {
-        type: Number,
-        default: 0 // 0 = Estudiante, 1= Admn 2 = Formador 1 = estudiante 2 = egresado, 3 = formador, 4 = mentor 5=monitor 6=entrevistador 7=observador 8=entreobservador =admin 
+      type: Number,
+      default: 0 // 0 = Estudiante, 1= Admn 2 = Formador 1 = estudiante 2 = egresado, 3 = formador, 4 = mentor 5=monitor 6=entrevistador 7=observador 8=entreobservador =admin
     },
     avatar: {
       type: String,
       default:
         'https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png'
     },
-    program:{
-        type : String,
-        default : "Programate"
-      },
-    
-      cohorte:{
-          num:{
-            type : Number,
-            default : 2
-          },
-          name:{
-            type : String,
-            default :"cohorte 2 la mejor cohorte!!!!! "
-          }
-    
-      },
-      state:{   ///habilitarlo
-          type: Boolean,
-          default : true
-    
+    program: {
+      type: String,
+      default: 'Programate'
     },
+
+    cohorte: {
+      num: {
+        type: Number,
+        default: 2
+      },
+      name: {
+        type: String,
+        default: 'cohorte 2 la mejor cohorte!!!!! '
+      }
+    },
+    state: {
+      ///habilitarlo
+      type: Boolean,
+      default: true
+    },
+    deliverie: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Deliverie',
+    }]
+
   },
   {
     timestamps: true

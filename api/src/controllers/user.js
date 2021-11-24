@@ -83,37 +83,7 @@ const controllerUser = {
             return res.status(500).json({msg: err.message})
         }
     },
-    registerAdmin: async (req, res) =>{
-      try{
-          const {name, email, password, role} = req.body
 
-          if(!name || !email || !password || !role)
-              return res.status(400).json({msg: "Please fill in all fields."})
-
-          if(!validateEmail(email))
-              return res.status(400).json({msg: "Invalid emails."})
-
-          const user = await User.findOne({email})
-
-          if(user) return res.status(400).json({msg: "This email already exists."})
-
-          if(password.length < 6)
-              return res.status(400).json({msg: "Password must be at least 6 characters."})
-
-          const passwordHash = await bcrypt.hash(password, 12)
-
-          const newUser = new User({
-              name, email, passwordHash, role
-          })
-
-          
-          await newUser.save()
-          res.json({msg: "User has been create!"})
-
-      } catch (err) {
-          return res.status(500).json({msg: err.message})
-      }
-  },
   activateEmail: async (req, res) => {
     try {
       const { activation_token } = req.body
@@ -224,7 +194,7 @@ const controllerUser = {
   },
   getUserInfor: async (req, res) => {
     try {
-      const user = await User.findById(req.user.id).select('-password')
+      const user = await User.findById(req.user.id).select('-password').populate('deliverie')
 
       res.json(user)
     } catch (err) {
@@ -242,7 +212,7 @@ const controllerUser = {
   },
   getUsersAllStudents: async (req, res) => {
     try {
-        const users = await User.find({role: 0}).select('-password')
+        const users = await User.find({role: 0}).select('-password').populate('deliverie')
         res.json(users)
     } catch (err) {
         return res.status(500).json({msg: err.message})
