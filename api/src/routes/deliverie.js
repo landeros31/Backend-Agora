@@ -5,10 +5,10 @@ const controllerDeliverie = require('../controllers/deliverie')
 
 
 
-router.post('/new-deliverie', controllerDeliverie.create)
-router.post('/new-deliverie/:id_deliverie', controllerDeliverie.addChat)
-router.post('/new-deliverie/:id_deliverie', controllerDeliverie.addLink)
-router.get('/get-deliveries', controllerDeliverie.getDeliveries)
+router.post('/new-deliverie', auth, controllerDeliverie.create)
+router.post('/new-deliverie/:id_deliverie', auth, controllerDeliverie.addChat)
+router.post('/new-deliverie/:id_deliverie',auth,  controllerDeliverie.addLink)
+router.get('/get-deliveries',auth, controllerDeliverie.getDeliveries)
 router.get('/get-deliverie/:id_deliverie', controllerDeliverie.getDeliverie)
 router.get('/get-deliverie-student',auth, controllerDeliverie.getDeliverieStudent)
 router.get('/get-deliverie-proyect',auth, controllerDeliverie.getDeliverieProyect)

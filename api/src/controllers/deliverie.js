@@ -4,8 +4,8 @@ const User = require('../db/models/user')
 const controllerDeleverie = {
   create: async (req, res) => {
     try {
-      const { id_project } = req.params
-      const { title, id_user, id_publisher, link, text } = req.body
+      // const { id_project } = req.params
+      const { id_project, title, id_user, id_publisher, link, text } = req.body
 
     //   if (!text || !id_project || !id_publisher || !id_user)
     //     return res.status(400).json({ msg: 'Please fill in all fields.' })
