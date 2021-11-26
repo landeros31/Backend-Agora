@@ -1,5 +1,5 @@
+const Deliverie = require('../db/models/deliverie')
 const Outcome = require('../db/models/outcome')
-
 
 const controllerOutcome = {
     create: async (req, res) => {
@@ -60,6 +60,5 @@ const controllerOutcome = {
     },
  
 }
-    
 
 module.exports = controllerOutcome
