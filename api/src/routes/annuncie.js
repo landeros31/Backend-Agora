@@ -5,7 +5,7 @@ const controllerAnnuncie = require('../controllers/annuncie')
 
 
 router.post('/new-announcie',auth, controllerAnnuncie.create)
-router.get('/get-announcies',auth, controllerAnnuncie.getAnnuncies)
+router.get('/get-announcies', controllerAnnuncie.getAnnuncies)
 router.patch('/update-announcie',auth,controllerAnnuncie.updateAnnuncie)
 
 

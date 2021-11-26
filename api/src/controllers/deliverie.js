@@ -1,4 +1,9 @@
+var ObjectId = require('mongodb').ObjectID;
 const Deliverie = require('../db/models/deliverie')
+const Project = require('../db/models/Project')
+const User = require('../db/models/user')
+
+
 
 const controllerDeleverie = {
     create: async (req, res) => {
@@ -96,7 +101,7 @@ const controllerDeleverie = {
             return res.status(500).json({msg: err.message})
         }
     },
-
+    
     //      const user = await User.findOne({ email })
     // updateDeliverie: async (req, res) => {
     //     try {

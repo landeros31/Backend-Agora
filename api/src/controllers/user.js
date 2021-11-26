@@ -13,20 +13,20 @@ const controllerUser = {
 
       if (!name || !email || !password ||  !lastName  || !contactNumber
         )
-        return res.status(400).json({ msg: 'Please fill in all fields.' })
+        return res.status(400).json({ msg: 'Todos los campos son requeridos.' })
 
       if (!validateEmail(email))
-        return res.status(400).json({ msg: 'Invalid emails.' })
+        return res.status(400).json({ msg: 'Correo electronico invalido.' })
 
       const user = await User.findOne({ email })
 
       if (user)
-        return res.status(400).json({ msg: 'This email already exists.' })
+        return res.status(400).json({ msg: 'Este correo electronico ya existe .' })
 
       if (password.length < 6)
         return res
           .status(400)
-          .json({ msg: 'Password must be at least 6 characters.' })
+          .json({ msg: 'La contraseña debe tener al menos 6 caracteres.' })
 
       const passwordHash = await bcrypt.hash(password, 12)
 
@@ -44,10 +44,10 @@ const controllerUser = {
       const activation_token = createActivationToken(newUser)
 
       const url = `${CLIENT_URL}/user/activate/${activation_token}`
-      sendMail(email, url, 'Verify your email address')
+      sendMail(email, url, 'Verifica tu correo electronico')
 
       res.json({
-        msg: 'Register Success! Please activate your email to start.'
+        msg: 'Registro exitoso! para activar tu cuenta, revisa tu correo electronico.'
       })
     } catch (err) {
       return res.status(500).json({ msg: err.message })
@@ -57,17 +57,17 @@ const controllerUser = {
             const {name, email, password, role} = req.body
 
             if(!name || !email || !password || !role)
-                return res.status(400).json({msg: "Please fill in all fields."})
+                return res.status(400).json({msg: "Todos los campos son obligatorios."})
 
             if(!validateEmail(email))
-                return res.status(400).json({msg: "Invalid emails."})
+                return res.status(400).json({msg: "correo electronico incorrecto."})
 
             const user = await User.findOne({email})
 
-            if(user) return res.status(400).json({msg: "This email already exists."})
+            if(user) return res.status(400).json({msg: "Este correo electronico ya existe."})
 
             if(password.length < 6)
-                return res.status(400).json({msg: "Password must be at least 6 characters."})
+                return res.status(400).json({msg: "La contraseña debe tener al menos 6 caracteres."})
 
             const passwordHash = await bcrypt.hash(password, 12)
 
@@ -77,7 +77,7 @@ const controllerUser = {
 
             
             await newUser.save()
-            res.json({msg: "User has been create!"})
+            res.json({msg: "El usuario fue creado!"})
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -88,17 +88,17 @@ const controllerUser = {
           const {name, email, password, role} = req.body
 
           if(!name || !email || !password || !role)
-              return res.status(400).json({msg: "Please fill in all fields."})
+              return res.status(400).json({msg: "Todos los campos son obligatorios."})
 
           if(!validateEmail(email))
-              return res.status(400).json({msg: "Invalid emails."})
+              return res.status(400).json({msg: "correo electronico incorrecto."})
 
           const user = await User.findOne({email})
 
-          if(user) return res.status(400).json({msg: "This email already exists."})
+          if(user) return res.status(400).json({msg: "El correo electronico ya existe."})
 
           if(password.length < 6)
-              return res.status(400).json({msg: "Password must be at least 6 characters."})
+              return res.status(400).json({msg: "La contraseña debe tener al menos 6 caracteres."})
 
           const passwordHash = await bcrypt.hash(password, 12)
 
@@ -108,7 +108,7 @@ const controllerUser = {
 
           
           await newUser.save()
-          res.json({msg: "User has been create!"})
+          res.json({msg: "Usuario creado!"})
 
       } catch (err) {
           return res.status(500).json({msg: err.message})
@@ -127,7 +127,7 @@ const controllerUser = {
 
       const check = await User.findOne({ email })
       if (check)
-        return res.status(400).json({ msg: 'This email already exists.' })
+        return res.status(400).json({ msg: 'Este correo electronico ya existe.' })
 
       const newUser = new User({
         name,
@@ -142,7 +142,7 @@ const controllerUser = {
 
       await newUser.save()
 
-      res.json({ msg: 'Account has been activated!' })
+      res.json({ msg: 'la cuenta fue activada!' })
     } catch (err) {
       return res.status(500).json({ msg: err.message })
     }
@@ -157,7 +157,7 @@ const controllerUser = {
             user === null ? false : await bcrypt.compare(password, user.passwordHash)
             if (!isMatch) {
                 res.status(401).json({
-                    error: 'Invalid password or user'
+                    error: 'usuario o contraseña invalido'
                 })
             }
         
@@ -166,7 +166,7 @@ const controllerUser = {
         res.send({
             email: user.email,
             refresh_token,
-            msg: "Login success!"
+            msg: "ingreso exitoso!"
             
         })
         
@@ -177,10 +177,10 @@ const controllerUser = {
   getAccessToken: (req, res) => {
     try {
       const rf_token = req.body.refreshtoken
-      if (!rf_token) return res.status(400).json({ msg: 'Please login now!' })
+      if (!rf_token) return res.status(400).json({ msg: 'ingresa ahora!!' })
 
       jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err) return res.status(400).json({ msg: 'Please login now!' })
+        if (err) return res.status(400).json({ msg: 'ingresa hora!!' })
 
         const access_token = createAccessToken({ id: user.id })
         res.json({ access_token })
@@ -194,13 +194,13 @@ const controllerUser = {
       const { email } = req.body
       const user = await User.findOne({ email })
       if (!user)
-        return res.status(400).json({ msg: 'This email does not exist.' })
+        return res.status(400).json({ msg: 'Este correo electronico no esta registrado.' })
 
       const access_token = createAccessToken({ id: user._id })
       const url = `${CLIENT_URL}/user/reset/${access_token}`
 
-      sendMail(email, url, 'Reset your password')
-      res.json({ msg: 'Re-send the password, please check your email.' })
+      sendMail(email, url, 'Restablece tu contraseña')
+      res.json({ msg: 'verifica tu email para cambiar contraseña.' })
     } catch (err) {
       return res.status(500).json({ msg: err.message })
     }
@@ -217,7 +217,7 @@ const controllerUser = {
         }
       )
 
-      res.json({ msg: 'Password successfully changed!' })
+      res.json({ msg: 'Contraseña cambiada correctamente!' })
     } catch (err) {
       return res.status(500).json({ msg: err.message })
     }
@@ -260,7 +260,7 @@ const controllerUser = {
         }
       )
 
-      res.json({ msg: 'Update Success!' })
+      res.json({ msg: 'Edicion exitosa!' })
     } catch (err) {
       return res.status(500).json({ msg: err.message })
     }
@@ -276,7 +276,7 @@ const controllerUser = {
         }
       )
 
-      res.json({ msg: 'Update Success!' })
+      res.json({ msg: 'Edicion exitosa!' })
     } catch (err) {
       return res.status(500).json({ msg: err.message })
     }
@@ -285,7 +285,7 @@ const controllerUser = {
     try {
       await User.findByIdAndDelete(req.params.id)
 
-      res.json({ msg: 'Deleted Success!' })
+      res.json({ msg: 'eliminacion exitosa!' })
     } catch (err) {
       return res.status(500).json({ msg: err.message })
     }

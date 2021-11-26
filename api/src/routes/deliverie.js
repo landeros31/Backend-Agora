@@ -13,6 +13,7 @@ router.get('/get-deliverie-student',auth, controllerDeliverie.getDeliverieStuden
 router.get('/get-deliverie-proyect',auth, controllerDeliverie.getDeliverieProyect)
 
 
+
 //router.patch('/update-deliverie', controllerDeliverie.updateDeliverie)
 
 

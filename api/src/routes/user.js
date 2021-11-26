@@ -20,7 +20,7 @@ router.post('/reset', auth, controllerUser.resetPassword)
 
 router.get('/info', auth, controllerUser.getUserInfor)
 
-router.get('/all_info', auth, authAdmin, controllerUser.getUsersAllInfor)
+router.get('/all_info', controllerUser.getUsersAllInfor)
 
 router.get('/all_students', auth, authTeacher, controllerUser.getUsersAllStudents)
 

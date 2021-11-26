@@ -14,6 +14,10 @@ const outcomeSchema = new Schema ({
       type: Array,
       require: true,
     },
+    cohorte:{
+      type : Number,
+      default : 2
+},
 })
 
 outcomeSchema.set('toJSON', {

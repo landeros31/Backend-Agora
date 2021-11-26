@@ -4,7 +4,7 @@ const Outcome = require('../db/models/outcome')
 const controllerOutcome = {
     create: async (req, res) => {
         try{
-            const {id_deliverie, outcomes} = req.body
+            const {id_deliverie, outcomes,cohorte} = req.body
 
             if(!outcomes || !id_deliverie )
                 return res.status(400).json({msg: "Please fill in all fields."})
@@ -44,6 +44,16 @@ const controllerOutcome = {
             })
 
             res.json({msg: "Update Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getOutcomeDash: async (req, res) => {
+        const {cohorte} = req.params
+        try {
+            const outcome = await Outcome.find({cohorte})
+            
+            res.json(outcome)
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
