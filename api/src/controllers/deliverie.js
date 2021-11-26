@@ -97,7 +97,9 @@ const controllerDeleverie = {
   //getAll X student
   getDeliverieStudent: async (req, res) => {
     try {
-      const { id_user } = req.body
+      
+      const { id_user } = req.params
+      console.log(id_user)
       const deliverie = await Deliverie.find({ id_user }).populate('competencies')
 
       res.json(deliverie)

@@ -10,7 +10,7 @@ router.post('/new-deliverie/:id_deliverie', auth, controllerDeliverie.addChat)
 router.post('/new-deliverie/:id_deliverie',auth,  controllerDeliverie.addLink)
 router.get('/get-deliveries',auth, controllerDeliverie.getDeliveries)
 router.get('/get-deliverie/:id_deliverie', controllerDeliverie.getDeliverie)
-router.get('/get-deliverie-student',auth, controllerDeliverie.getDeliverieStudent)
+router.get('/get-deliverie-student/:id_user',auth, controllerDeliverie.getDeliverieStudent)
 router.get('/get-deliverie-proyect',auth, controllerDeliverie.getDeliverieProyect)
 
 
