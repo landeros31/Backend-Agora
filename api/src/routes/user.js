@@ -30,6 +30,9 @@ router.patch('/update_role/:id', auth, authAdmin, controllerUser.updateUsersRole
 
 router.delete('/delete/:id', auth, authAdmin, controllerUser.deleteUser)
 
+router.get('/badge', controllerUser.getBadges)
+
+router.patch('/update_badge/:id',controllerUser.updateBadge)
  
 
 module.exports = router
